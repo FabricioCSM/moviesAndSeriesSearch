@@ -1,6 +1,7 @@
 export const SIGN_INFO = "SIGN_INFO";
 export const GET_MOVIES_BY_SEARCH = "GET_MOVIES_BY_SEARCH";
 export const GET_MOVIES_BY_NAME = "GET_MOVIES_BY_NAME";
+export const GET_ALL_MOVIES = "GET_ALL_MOVIES";
 
 export function signUser(email, password) {
   return {
@@ -10,49 +11,56 @@ export function signUser(email, password) {
   };
 };
 
-export function getMovies(movies) {
+export function getAllMovies(movies) {
   return {
-    type: GET_MOVIES_BY_SEARCH,
+    type: GET_ALL_MOVIES,
     movies,
   };
 }
 
-export function getMoviesByName(movies, name) {
+export function getMoviesByActor(movies, actor) {
+  return {
+    type: GET_MOVIES_BY_SEARCH,
+    movies,
+    actor,
+  };
+}
+
+export function getMoviesBySearch(movies, search) {
   return {
     type: GET_MOVIES_BY_NAME,
     movies,
-    name,
+    search,
   }
 }
 
-export const getMoviesBySearchThunk = (search) => (dispatch) => (
-  fetch(`https://imdb-data-searching.p.rapidapi.com/om?s=${search}`, {
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-host": "imdb-data-searching.p.rapidapi.com",
-      "x-rapidapi-key": "b19a964cafmsh62a3c8356170df6p12d7fdjsn0bf25e356dd6"
-  }
-}).then((response) => (
+export const getAllMoviesThunk = (page) => (dispatch) => (
+  fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=076484b68a1717d75a2f3c8d13f5c019&language=pt-BR&page=${page}`).then((response) => (
   response.json()
-    .then((json) => dispatch(getMovies(json)))
+    .then((json) => dispatch(getAllMovies(json)))
 ))
   .catch(err => {
     console.error(err);
   })
 )
 
-export const getMoviesByNameThunk = (name) => (dispatch) => (
-  fetch("https://imdb-data-searching.p.rapidapi.com/om?t=Game%20of%20Thrones", {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "imdb-data-searching.p.rapidapi.com",
-		"x-rapidapi-key": "b19a964cafmsh62a3c8356170df6p12d7fdjsn0bf25e356dd6"
-	}
-}).then((response) => (
+export const getMoviesByActorThunk = (actor) => (dispatch) => (
+  fetch(`https://api.themoviedb.org/3/search/person?api_key=076484b68a1717d75a2f3c8d13f5c019&language=pt-BR&query=${actor}&page=1&include_adult=false`).then((response) => (
   response.json()
-    .then((json) => dispatch(getMoviesByName(json, name)))
+    .then((json) => dispatch(getMoviesByActor(json)))
 ))
   .catch(err => {
     console.error(err);
   })
 )
+
+export const getMoviesBySearchThunk = (search) => (dispatch) => (
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=076484b68a1717d75a2f3c8d13f5c019&language=pt-BR&query=${search}&page=1&include_adult=false`).then((response) => (
+  response.json()
+    .then((json) => dispatch(getMoviesBySearch(json)))
+))
+  .catch(err => {
+    console.error(err);
+  })
+)
+

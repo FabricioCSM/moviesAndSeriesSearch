@@ -2,7 +2,7 @@ import { SIGN_INFO } from "../actions";
 
 const INITIAL_STATE = {
   email: '',
-  password: '',
+  name: '',
 }
 
 const signUser = (state = INITIAL_STATE, action) => {
@@ -11,7 +11,7 @@ const signUser = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         email: action.email,
-        password: action.password,
+        name: action.name,
       };
       default:
         return state;

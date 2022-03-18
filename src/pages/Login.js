@@ -1,31 +1,72 @@
-import React, { useEffect } from "react";
-import { connect, shallowEqual, useSelector } from "react-redux";
-import { getMoviesBySearchThunk } from '../actions';
+import React, { useEffect, useState } from "react";
+import { getAllMoviesThunk } from '../actions';
+import { Button, Form } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { signUser } from '../actions';
 
-function Login({getMoviesInit}) {
+function Login() {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [name, setName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [buttonsSaveDisabled, setButtonsSaveDisabled] = useState(true);
+
+  function loginUser() {
+    dispatch(signUser(email,name));
+    dispatch(getAllMoviesThunk());
+    history.push('/library');
+  }
+
+  function onInputChange({target}) {
+    encodeURIComponent(target.value)
+    target.name === 'name' ? setName(target.value) : setEmail(target.value)
+  }
 
   useEffect(() => {
-    getMoviesInit('king')
-  }, []);
+    function authenticateLogin(){
+      if(name.length >= 3 && email.includes('@') && email.includes('.com')) {
+        setButtonsSaveDisabled(false)
+      }
+      else setButtonsSaveDisabled(true)
+    }
 
-  const { movies } = useSelector(state => ({
-    movies: state.exhibitions.movies,
-  }), shallowEqual);
+    authenticateLogin()
+  }, [name, email, buttonsSaveDisabled])
 
   return(
-    <main>
-      <h2>Login</h2>
-      {movies[0].Search.map((movie, index) => (<p key={index}>{movie.Title}</p>))}
-    </main>
+    <Form>
+      <Form.Group controlId="formBasicUser">
+      <Form.Label>Username</Form.Label>
+        <Form.Control
+            data-testid="email-input"
+            type="text"
+            name="name"
+            placeholder="username"
+            onChange={ onInputChange }
+          />
+      </Form.Group>
+
+      <Form.Group controlId="formBasicUser">
+        <Form.Label>Email address</Form.Label>
+          <Form.Control
+            data-testid="email-input"
+            type="email"
+            name="email"
+            placeholder="example@email.com"
+            onChange={ onInputChange }
+          />
+      </Form.Group>
+      <Button
+        disabled={ buttonsSaveDisabled }
+        className="inputButton"
+        onClick={ loginUser }
+      >
+        Entrar
+      </Button>
+    </Form>
   )
 }
 
-const mapStateToProps = (state) => ({
-  movies: state.exhibitions.movies,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  getMoviesInit: (search) => dispatch(getMoviesBySearchThunk(search)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;
