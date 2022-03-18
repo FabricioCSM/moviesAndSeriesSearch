@@ -20,7 +20,7 @@ function Login() {
   }
 
   function onInputChange({target}) {
-    encodeURIComponent(target.value)
+
     target.name === 'name' ? setName(target.value) : setEmail(target.value)
   }
 
