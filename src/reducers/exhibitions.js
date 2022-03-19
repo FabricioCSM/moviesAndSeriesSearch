@@ -1,10 +1,9 @@
-import { GET_MOVIES_BY_SEARCH, GET_MOVIES_BY_NAME, GET_ALL_MOVIES } from "../actions";
+import { GET_MOVIES_BY_ACTOR, GET_MOVIES_BY_SEARCH, GET_ALL_MOVIES } from "../actions";
 
 const INITIAL_STATE = {
   movies: [],
-  name: '',
-  search: '',
   actor: '',
+  search: '',
 }
 
 const movies = (state = INITIAL_STATE, action) => {
@@ -14,13 +13,13 @@ const movies = (state = INITIAL_STATE, action) => {
         ...state,
         movies: [action.movies],
       };
-    case GET_MOVIES_BY_SEARCH:
+    case GET_MOVIES_BY_ACTOR:
       return {
         ...state,
         movies: [action.movies],
-        actor: action.actor
+        actor: action.actor,
       };
-      case GET_MOVIES_BY_NAME:
+      case GET_MOVIES_BY_SEARCH:
         return {
           ...state,
           movies: [action.movies],

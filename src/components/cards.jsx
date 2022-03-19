@@ -1,21 +1,46 @@
+import { Button } from 'bootstrap';
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Row } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
+import whiteHeartIcon from '../assets/whiteHeartIcon.svg';
+import blackHeartIcon from '../assets/blackHeartIcon.svg';
 import { connect, shallowEqual, useSelector } from "react-redux";
 
 function Cards() {
 
   const [moviesLoaded, setMovies] = useState([])
+  const [favorite, setFavorite] = useState(false)
+  const [userEmail, setEmail] = useState([])
 
 
-    const { movies } = useSelector(state => ({
-    movies: state.exhibitions.movies,
+    const { movies, email } = useSelector(state => ({
+      movies: state.exhibitions.movies,
+      email: state.user.email,
     }), shallowEqual);
 
 
   useEffect(() => {
     setMovies(movies)
-  }, [movies])
+    setEmail(email)
+  }, [movies, email])
+
+  const handleFavorite = (movie, userEmail) => {
+    if(!localStorage.getItem(userEmail)) {
+      localStorage.setItem(userEmail, JSON.stringify([movie]))
+    }
+    else {
+      const movies = JSON.parse(localStorage.getItem(userEmail));
+      if(!movies.find((el) => el.id === movie.id)){
+        setFavorite(!favorite)
+        localStorage.setItem(userEmail, JSON.stringify([...movies, movie]))
+      }
+      else {
+        setFavorite(!favorite);
+        localStorage.setItem(userEmail, movies.filter((el) => el.id !== movie.id));
+      }
+    }
+  }
+
   
   return (
     <Row
@@ -24,7 +49,6 @@ function Cards() {
     >
       {moviesLoaded.length ? moviesLoaded[0].results.map((movie, index) => (
         <Card
-          // onClick={ () => redirectTo(food) }
           bg="secondary"
           border="dark"
           key={ index }
@@ -42,6 +66,13 @@ function Cards() {
               { movie.title }
             </Card.Title>
           </Card.Body>
+          <input
+            type="image"
+            onClick={ () => handleFavorite(movie, userEmail) }
+            src={ favorite ? blackHeartIcon : whiteHeartIcon }
+            style={{width: '30px'}}
+            alt="botao de favoritar em forma de coração"
+          />
         </Card>
       )) : <ReactLoading type={'spin'} color={'#2f4f4f'} height={'10%'} width={'10%'}  />}  
 
@@ -51,6 +82,8 @@ function Cards() {
 
 const mapStateToProps = (state) => ({
   movies: state.exhibitions.movies,
+  email:  state.user.email,
+  search: state.exhibitions.search
 })
 
 export default connect(mapStateToProps)(Cards);

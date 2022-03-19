@@ -4,8 +4,6 @@ import Cards from "../components/cards";
 
 function Library() {
 
-
-
   return(
     <main>
       <Header />
