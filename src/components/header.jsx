@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Container, FormControl, Form, Nav, Navbar, Button } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../assets/profileIcon.svg';
 import SearchBar from './searchBar';
@@ -35,7 +34,7 @@ function Header() {
   };
 
   const handleBtnClick = () => {
-    // history.push('/profile');
+    history.push('/profile');
     
   };
 

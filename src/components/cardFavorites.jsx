@@ -5,21 +5,13 @@ import ReactLoading from 'react-loading';
 import { connect, shallowEqual, useSelector } from "react-redux";
 import FavoriteCard from './favoriteCard';;
 
-function Cards({favoriteEmail}) {
+function CardsFavorites({favoriteEmail}) {
 
   const [moviesLoaded, setMovies] = useState([])
-  const [userEmail, setEmail] = useState([])
-
-    const { movies, email } = useSelector(state => ({
-      movies: state.exhibitions.movies,
-      email: state.user.email,
-    }), shallowEqual);
-
 
   useEffect(() => {
-    setMovies(movies)
-    setEmail(email)
-  }, [movies, email])
+    setMovies(JSON.parse(localStorage.getItem(favoriteEmail)))
+  }, [favoriteEmail])
 
 
 
@@ -30,7 +22,8 @@ function Cards({favoriteEmail}) {
       className="g-4"
       style={ { marginBottom: '80px', padding: '5%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } }
     >
-      {moviesLoaded.length ? moviesLoaded[0].results.map((movie, index) => (
+      {console.log(moviesLoaded)}
+      {moviesLoaded ? moviesLoaded.map((movie, index) => (
         <Card
           bg="secondary"
           border="dark"
@@ -49,7 +42,7 @@ function Cards({favoriteEmail}) {
               { movie.title }
             </Card.Title>
           </Card.Body>
-          <FavoriteCard movie={movie} userEmail={userEmail}/>
+          <FavoriteCard movie={movie} userEmail={favoriteEmail}/>
         </Card>
       )) : <ReactLoading type={'spin'} color={'#2f4f4f'} height={'10%'} width={'10%'}  />}  
 
@@ -57,10 +50,5 @@ function Cards({favoriteEmail}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  movies: state.exhibitions.movies,
-  email:  state.user.email,
-  search: state.exhibitions.search
-})
 
-export default connect(mapStateToProps)(Cards);
+export default CardsFavorites;
