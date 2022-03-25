@@ -1,0 +1,18 @@
+.header {
+  height: 10em;
+  width: 100%;
+  background: 
+  linear-gradient(
+    45deg, 
+    rgb(0, 0, 0)  33.33%, white 33.33%, 
+    white 66.66%, rgb(0, 0, 0) 66.66%
+  );
+  /* -webkit-background-size: 50px 50px;
+  -moz-background-size: 50px 50px; */
+  
+}
+
+.backBtn {
+  margin: 20px;
+  margin-right: 50px;
+}

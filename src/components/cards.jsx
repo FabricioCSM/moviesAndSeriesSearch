@@ -14,6 +14,7 @@ function Cards() {
       className="g-4"
       style={ { marginBottom: '80px', padding: '5%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } }
     >
+      {console.log(moviesLoaded)}
       {moviesLoaded.length ? moviesLoaded[0].results.map((movie, index) => (
         <Card
           bg="secondary"

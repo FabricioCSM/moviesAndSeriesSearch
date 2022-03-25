@@ -6,6 +6,7 @@ import { connect, shallowEqual, useSelector } from "react-redux";
 import { getAllMoviesThunk } from '../actions';
 import { useDispatch } from "react-redux";
 import AppContext from "../context/AppContext";
+import './Library.css'
 
 
 function Library() {
@@ -29,7 +30,7 @@ function Library() {
   return(
     <main>
       <Header />
-      {searchKey ? <h2>Resultado da Pesquisa de: {`${searchKey}`}</h2> : null}
+      {searchKey ? <h2 className="resultSearch">Resultado da Pesquisa de: "{`${searchKey}`}"</h2> : null}
       <Cards emailUser={userEmail} moviesLoad={moviesLoaded}/>
       {/* <PaginationRender /> */}
     </main>

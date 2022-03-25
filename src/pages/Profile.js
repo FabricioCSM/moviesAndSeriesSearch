@@ -11,16 +11,13 @@ function Profile() {
   const { userName, userEmail } = useContext(AppContext)
   const history = useHistory();
 
-  function backButnHandle(){
-    history.push('/library');
-  }
+
 
     return(
       <main>
         {userEmail ? (
           <>
             <Header />
-            <Button onClick={ backButnHandle }>Voltar</Button>
             <CardsFavorites favoriteEmail={userEmail}/>
           </>
         ): <ReactLoading type={'spin'} color={'#2f4f4f'} height={'10%'} width={'10%'}  />}

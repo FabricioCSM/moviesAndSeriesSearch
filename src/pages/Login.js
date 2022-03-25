@@ -4,6 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import AppContext from "../context/AppContext";
+import './Login.css';
 
 
 function Login() {
@@ -39,36 +40,38 @@ function Login() {
   }, [name, email, buttonsSaveDisabled])
 
   return(
-    <Form>
-      <Form.Group controlId="formBasicUser">
-      <Form.Label>Username</Form.Label>
-        <Form.Control
-            data-testid="email-input"
-            type="text"
-            name="name"
-            placeholder="username"
-            onChange={ onInputChange }
-          />
-      </Form.Group>
-
-      <Form.Group controlId="formBasicUser">
-        <Form.Label>Email address</Form.Label>
+    <main className="loginFormPage">
+      <Form className="loginForm">
+        <Form.Group  controlId="formBasicUser">
+        <Form.Label className="labelFormLogin">Username</Form.Label>
           <Form.Control
-            data-testid="email-input"
-            type="email"
-            name="email"
-            placeholder="example@email.com"
-            onChange={ onInputChange }
-          />
-      </Form.Group>
-      <Button
-        disabled={ buttonsSaveDisabled }
-        className="inputButton"
-        onClick={ loginUser }
-      >
-        Entrar
-      </Button>
-    </Form>
+              data-testid="email-input"
+              type="text"
+              name="name"
+              placeholder="username"
+              onChange={ onInputChange }
+            />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicUser">
+          <Form.Label className="labelFormLogin">Email address</Form.Label>
+            <Form.Control
+              data-testid="email-input"
+              type="email"
+              name="email"
+              placeholder="example@email.com"
+              onChange={ onInputChange }
+            />
+        </Form.Group>
+        <Button
+          disabled={ buttonsSaveDisabled }
+          className="inputButton"
+          onClick={ loginUser }
+        >
+          Entrar
+        </Button>
+      </Form>
+    </main>
   )
 }
 
