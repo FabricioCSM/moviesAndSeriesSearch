@@ -18,20 +18,17 @@ function SearchBar() {
 
   const handleChange = ({ target }) => {
     setSearch(target.value);
-    console.log(search)
   };
 
   const handleSearch = (event) => {
     event.preventDefault();
-    if(search.lenght === 0){
+    if(search === ''){
       dispatch(getAllMoviesThunk());
       getMovies(movies);
       getSearchKeyWord('')
     }
     else {
-      console.log(search)
-      dispatch(getMoviesBySearchThunk(encodeURIComponent(search)));
-      getMovies(movies);
+      dispatch(getMoviesBySearchThunk(encodeURIComponent(search)));    
       getSearchKeyWord(search)
     }
   };

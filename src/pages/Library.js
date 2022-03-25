@@ -10,27 +10,28 @@ import AppContext from "../context/AppContext";
 
 function Library() {
   const dispatch = useDispatch();
-  const {getMovies, moviesLoaded, userEmail, searchKey } = useContext(AppContext)
+  const {getMovies, moviesLoaded, userEmail, searchKey, getSearchKeyWord } = useContext(AppContext)
 
   const { movies } = useSelector(state => ({
     movies: state.exhibitions.movies,
   }), shallowEqual);
 
   useEffect(() => {
-    dispatch(getAllMoviesThunk())
     getMovies(movies)
-  }, [])
+  }, [movies])
 
   useEffect(() => {
+    dispatch(getAllMoviesThunk())
+    getSearchKeyWord('')
     getMovies(movies)
-  }, [moviesLoaded])
+  }, [])
 
   return(
     <main>
       <Header />
       {searchKey ? <h2>Resultado da Pesquisa de: {`${searchKey}`}</h2> : null}
       <Cards emailUser={userEmail} moviesLoad={moviesLoaded}/>
-      <PaginationRender />
+      {/* <PaginationRender /> */}
     </main>
   )
 }

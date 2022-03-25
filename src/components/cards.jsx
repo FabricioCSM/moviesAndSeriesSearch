@@ -7,20 +7,14 @@ import FavoriteCard from './favoriteCard';
 
 function Cards() {
 
-  const [moviesToShow, setMoviesToShow] = useState([])
   const {moviesLoaded, userEmail } = useContext(AppContext)
 
-  useEffect(() => {
-    setMoviesToShow(moviesLoaded)
-    console.log(moviesLoaded)
-  }, [moviesLoaded])
-  
   return (
     <Row
       className="g-4"
       style={ { marginBottom: '80px', padding: '5%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } }
     >
-      {moviesToShow.length ? moviesLoaded[0].results.map((movie, index) => (
+      {moviesLoaded.length ? moviesLoaded[0].results.map((movie, index) => (
         <Card
           bg="secondary"
           border="dark"
