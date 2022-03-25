@@ -2,35 +2,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Row } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
-import { connect, shallowEqual, useSelector } from "react-redux";
-import FavoriteCard from './favoriteCard';;
+import AppContext from "../context/AppContext";
+import FavoriteCard from './favoriteCard';
 
-function Cards({favoriteEmail}) {
+function Cards() {
 
-  const [moviesLoaded, setMovies] = useState([])
-  const [userEmail, setEmail] = useState([])
-
-    const { movies, email } = useSelector(state => ({
-      movies: state.exhibitions.movies,
-      email: state.user.email,
-    }), shallowEqual);
-
+  const [moviesToShow, setMoviesToShow] = useState([])
+  const {moviesLoaded, userEmail } = useContext(AppContext)
 
   useEffect(() => {
-    setMovies(movies)
-    setEmail(email)
-  }, [movies, email])
-
-
-
-
+    setMoviesToShow(moviesLoaded)
+    console.log(moviesLoaded)
+  }, [moviesLoaded])
   
   return (
     <Row
       className="g-4"
       style={ { marginBottom: '80px', padding: '5%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } }
     >
-      {moviesLoaded.length ? moviesLoaded[0].results.map((movie, index) => (
+      {moviesToShow.length ? moviesLoaded[0].results.map((movie, index) => (
         <Card
           bg="secondary"
           border="dark"
@@ -57,10 +47,6 @@ function Cards({favoriteEmail}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  movies: state.exhibitions.movies,
-  email:  state.user.email,
-  search: state.exhibitions.search
-})
 
-export default connect(mapStateToProps)(Cards);
+
+export default (Cards);

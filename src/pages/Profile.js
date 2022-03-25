@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { connect, shallowEqual, useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { Button } from 'react-bootstrap';
 import Header from "../components/header";
 import ReactLoading from 'react-loading';
+import { useHistory } from 'react-router-dom';
 import CardsFavorites from "../components/cardFavorites";
+import AppContext from "../context/AppContext";
 
 function Profile() {
 
-  const [userEmail, setEmail] = useState([''])
-  const [nameUser, setUserName] = useState([''])
+  const { userName, userEmail } = useContext(AppContext)
+  const history = useHistory();
 
-  const { email, userName } = useSelector(state => ({
-    email: state.user.email,
-    userName: state.user.userName,
-  }), shallowEqual);
-
-  useEffect(() => {
-    setEmail(email)
-    setUserName(userName)
-  }, [email])
+  function backButnHandle(){
+    history.push('/library');
+  }
 
     return(
       <main>
         {userEmail ? (
           <>
             <Header />
-            
+            <Button onClick={ backButnHandle }>Voltar</Button>
             <CardsFavorites favoriteEmail={userEmail}/>
           </>
         ): <ReactLoading type={'spin'} color={'#2f4f4f'} height={'10%'} width={'10%'}  />}
@@ -33,9 +29,4 @@ function Profile() {
     )
 }
 
-const mapStateToProps = (state) => ({
-  email:  state.user.email,
-  userName:  state.user.userName,
-})
-
-export default connect(mapStateToProps)(Profile);
+export default (Profile);

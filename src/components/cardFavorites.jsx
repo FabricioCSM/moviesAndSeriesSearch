@@ -22,7 +22,6 @@ function CardsFavorites({favoriteEmail}) {
       className="g-4"
       style={ { marginBottom: '80px', padding: '5%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } }
     >
-      {console.log(moviesLoaded)}
       {moviesLoaded ? moviesLoaded.map((movie, index) => (
         <Card
           bg="secondary"

@@ -10,9 +10,7 @@ function Header() {
   const [showSearch, setShowSearch] = useState(false);
   const [warning, setWarning] = useState(false);
 
-  const [searchConfigs, setSearchConfigs] = useState({
-    typedValue: '',
-  });
+  const [searchConfigs, setSearchConfigs] = useState('');
 
   const [buttonState, setButtonState] = useState(true);
 
@@ -28,9 +26,7 @@ function Header() {
   }, [searchConfigs]);
 
   const handleChange = ({ target }) => {
-    setSearchConfigs({
-      typedValue: target.value,
-    });
+    setSearchConfigs(target.value);
   };
 
   const handleBtnClick = () => {

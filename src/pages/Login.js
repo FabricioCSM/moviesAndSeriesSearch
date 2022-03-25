@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { getAllMoviesThunk } from '../actions';
+import React, { useContext, useEffect, useState } from "react";
+import { signUser } from '../actions';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { signUser } from '../actions';
+import AppContext from "../context/AppContext";
+
 
 function Login() {
 
-  const dispatch = useDispatch();
   const history = useHistory();
+
+  const { getUserEmail, getUserName } = useContext(AppContext)
+
   const [name, setName] = useState([]);
   const [email, setEmail] = useState([]);
   const [buttonsSaveDisabled, setButtonsSaveDisabled] = useState(true);
 
   function loginUser() {
-    dispatch(signUser(email,name));
-    dispatch(getAllMoviesThunk());
+    getUserEmail(email);
+    getUserName(name);
     history.push('/library');
   }
+  
 
   function onInputChange({target}) {
-
     target.name === 'name' ? setName(target.value) : setEmail(target.value)
   }
 

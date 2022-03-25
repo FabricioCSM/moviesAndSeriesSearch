@@ -1,28 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDispatch } from "react-redux";
+import { connect, shallowEqual, useSelector } from "react-redux";
 import { getMoviesBySearchThunk, getAllMoviesThunk } from '../actions';
+import AppContext from "../context/AppContext";
 
 
 function SearchBar() {
 
   const dispatch = useDispatch();
+  const {getMovies, getSearchKeyWord } = useContext(AppContext)
 
-  const [search, setSearch] = useState({
-    typedValue: '',
-  });
+  const [search, setSearch] = useState('');
+
+  const { movies } = useSelector(state => ({
+    movies: state.exhibitions.movies,
+  }), shallowEqual);
 
   const handleChange = ({ target }) => {
-    setSearch({
-      typedValue: target.value,
-    });
+    setSearch(target.value);
+    console.log(search)
   };
 
   const handleSearch = (event) => {
     event.preventDefault();
-    if(!search.typedValue){
+    if(search.lenght === 0){
       dispatch(getAllMoviesThunk());
+      getMovies(movies);
+      getSearchKeyWord('')
     }
-    else dispatch(getMoviesBySearchThunk(encodeURIComponent(search.typedValue)));
+    else {
+      console.log(search)
+      dispatch(getMoviesBySearchThunk(encodeURIComponent(search)));
+      getMovies(movies);
+      getSearchKeyWord(search)
+    }
   };
 
   return (
@@ -45,4 +56,9 @@ function SearchBar() {
   );
 }
 
-export default SearchBar;
+const mapStateToProps = (state) => ({
+  movies: state.exhibitions.movies,
+  search: state.exhibitions.search,
+})
+
+export default connect(mapStateToProps)(SearchBar);
