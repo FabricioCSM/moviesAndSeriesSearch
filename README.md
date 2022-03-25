@@ -18,8 +18,9 @@
 
 ### Next Features to come
 <ul>
-  <li> JWT Token </li>
+  <li> Pagination </li>
   <li> Fetch and search TVSeries </li>
+  <li> JWT Token </li>
   <li> Implements backend, ExpressJS </li>
   ...
 </ul>
