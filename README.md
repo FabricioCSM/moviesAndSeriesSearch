@@ -8,6 +8,7 @@
 <ul>
   <li> react-redux </li>
   <li> React Hooks </li>
+  <li> React Context API </li>
   <li> Bootstrap </li>
   <li> save and get on LocalStorage </li>
   <li> Fetch API from <a href="https://www.themoviedb.org">The Movie Database (TMDB)</a>
