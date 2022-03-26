@@ -26,3 +26,4 @@
 </ul>
 
 ---
+![movieSearch](https://user-images.githubusercontent.com/67379527/160244765-216d6ae0-3c41-4d7b-bcf3-a9542cfe1e6f.gif)
