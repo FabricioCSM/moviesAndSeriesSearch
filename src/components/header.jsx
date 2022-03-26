@@ -9,7 +9,6 @@ import './header.css'
 function Header() {
   const history = useHistory();
 
-  const [showSearch, setShowSearch] = useState(false);
   const [warning, setWarning] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const { path } = useRouteMatch();
