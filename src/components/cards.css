@@ -1,0 +1,55 @@
+.overlayMovie {
+  background-color: #00000054;
+  position: absolute;
+  top: 17.6%;
+  width: 100%;
+  height: 170%;
+  z-index: 1000;
+  padding: 90px;
+  
+}
+
+.cardMovieDetails {
+  background-color: rgb(238, 236, 102);
+  border-radius: 30px;
+  width: 80%;
+  margin-left: 10%;
+  height: auto;
+  padding: 30px;
+}
+
+.cardMovieInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.movieImage {
+  margin: 20px;
+}
+
+.movieInfoText {
+  margin-top: 20px;
+}
+
+.movieTitle {
+  font-size: 50px;
+}
+
+.movieOriginalTitle {
+  margin-bottom: 20px;
+}
+
+.movieOverview {
+  text-align: justify;
+  font-size: 22px;
+}
+
+.movieRelease {
+  margin-top: 50px;
+  font-size: 22px;
+}
+
+.movieImdbRate {
+  margin-top: 20px;
+  font-size: 22px;
+}

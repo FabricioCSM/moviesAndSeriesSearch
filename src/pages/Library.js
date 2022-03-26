@@ -11,7 +11,7 @@ import './Library.css'
 
 function Library() {
   const dispatch = useDispatch();
-  const {getMovies, moviesLoaded, userEmail, searchKey, getSearchKeyWord } = useContext(AppContext)
+  const {getMovies, moviesLoaded, userEmail, searchKey, getSearchKeyWord, favorites } = useContext(AppContext)
 
   const { movies } = useSelector(state => ({
     movies: state.exhibitions.movies,
@@ -19,7 +19,11 @@ function Library() {
 
   useEffect(() => {
     getMovies(movies)
-  }, [movies])
+  }, [movies, favorites])
+
+  // useEffect(() => {
+  //   getMovies(movies)
+  // }, [favorites])
 
   useEffect(() => {
     dispatch(getAllMoviesThunk())

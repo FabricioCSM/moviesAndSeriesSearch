@@ -7,6 +7,7 @@ function Provider({children}) {
   const [name, setName] = useState('');
   const [moviesLoaded, setMoviesLoaded] = useState([]);
   const [searchKey, setSearchKey] = useState('');
+  const [favorites, setFavorites] = useState(false)
 
   function getMovies(movies) {
     setMoviesLoaded(movies)
@@ -24,6 +25,10 @@ function Provider({children}) {
     setSearchKey(search)
   }
 
+  function getMovieInfo() {
+    setFavorites(!favorites)
+  }
+
   const contextValue = {
     getMovies,
     getUserEmail,
@@ -32,7 +37,9 @@ function Provider({children}) {
     searchKey,
     userEmail,
     name,
-    moviesLoaded
+    moviesLoaded,
+    setFavorites,
+    favorites
   }
 
   return (
